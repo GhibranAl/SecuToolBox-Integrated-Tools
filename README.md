@@ -41,9 +41,8 @@ Ensure you have the following tools installed:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/GhibranAl/SecuToolBox-Integrated-Pentest-Tools-.git
+   git clone https://github.com/marmuthandsome/SecuToolbox.git
    cd SecuToolbox
-   ```
 
 2. Ensure all required tools are installed and available in your PATH.
 
