@@ -37,6 +37,13 @@ def run_nmap_udp(target):
     except Exception as e:
         print(f"{RED}Error running nmap: {e}{RESET}")
 
+def run_nmap_custom(target, custom):
+    try:
+        command = f"sudo nmap {custom} {target}"
+        subprocess.run(command, shell=True)
+    except Exception as e:
+        print(f"{RED}Error running nmap: {e}{RESET}")
+
 def run_whatweb(url):
     try:
         command = f"whatweb {url}"
