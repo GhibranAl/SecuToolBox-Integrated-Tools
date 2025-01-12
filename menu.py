@@ -1,5 +1,5 @@
 # menu.py
-from commands import run_GetADUsers, run_GetNPUsers, run_GetNPUsers_file, run_GetUserSPNs, run_addhosts, run_crackmapexec_evil_hash, run_crackmapexec_evil_password, run_crackmapexec_smb_hash, run_crackmapexec_smb_password, run_dirsearch, run_dnsenum, run_enum4linux, run_evilwinrm_hash, run_evilwinrm_password, run_feroxbuster, run_ffuf, run_ffuf_subdomain, run_gobuster_dir, run_gobuster_dns, run_gobuster_vhost, run_kerbrute, run_ldap, run_mssqlclient, run_nmap_full, run_nmap_udp, run_psexec_hash, run_psexec_password, run_rpcclient, run_secretsdump, run_smbclient, run_smbclient_login, run_smbclient_user, run_smbmap, run_smbmap_user, run_snmpwalk_all, run_snmpwalk_extend, run_wfuzz, run_whatweb, run_xfreerdp
+from commands import run_GetADUsers, run_GetNPUsers, run_GetNPUsers_file, run_GetUserSPNs, run_addhosts, run_crackmapexec_evil_hash, run_crackmapexec_evil_password, run_crackmapexec_smb_hash, run_crackmapexec_smb_password, run_dirsearch, run_dnsenum, run_enum4linux, run_evilwinrm_hash, run_evilwinrm_password, run_feroxbuster, run_ffuf, run_ffuf_subdomain, run_gobuster_dir, run_gobuster_dns, run_gobuster_vhost, run_kerbrute, run_ldap, run_mssqlclient, run_nmap_full, run_nmap_udp, run_nmap_custom, run_psexec_hash, run_psexec_password, run_rpcclient, run_secretsdump, run_smbclient, run_smbclient_login, run_smbclient_user, run_smbmap, run_smbmap_user, run_snmpwalk_all, run_snmpwalk_extend, run_wfuzz, run_whatweb, run_xfreerdp
 from constants import BOLD, GREEN, LCYAN, LPURPLE, RESET, RED
 import commands
 
@@ -21,13 +21,14 @@ def display_menu():
     print("2. Run ffuf (directory)")
     print("3. Run nmap (full)")
     print("4. Run nmap (udp)")
-    print("5. Run whatweb")
-    print("6. Run wfuzz (subdomain)")
-    print("7. Run gobuster (directory)")
-    print("8. Run gobuster (dns)")
-    print("9. Run gobuster (vhost)")
-    print("10. Run dirsearch")
-    print("11. Run feroxbuster")
+    print("5. Run nmap (custom commands)")
+    print("6. Run whatweb")
+    print("7. Run wfuzz (subdomain)")
+    print("8. Run gobuster (directory)")
+    print("9. Run gobuster (dns)")
+    print("10. Run gobuster (vhost)")
+    print("11. Run dirsearch")
+    print("12. Run feroxbuster")
     print(f"{LPURPLE}\nActive Directory{RESET}")
     print("20. Run smbclient (guest)")
     print("21. Run smbclient (user & password)")
@@ -94,12 +95,19 @@ def handle_choice(choice):
         print(f"{LPURPLE}Executing:{RESET} {command}")
         run_nmap_udp(target)
     elif choice == '5':
+        target = input("Enter the target: ")
+        custom = input("Enter the custom commands: ")
+        command = f"sudo nmap {custom} {target}"
+        print("")
+        print(f"{LPURPLE}Executing:{RESET} {command}")
+        run_nmap_custom(target, custom)
+    elif choice == '6':
         url = input("Enter the URL: ")
         command = f"whatweb {url}"
         print(f"{LPURPLE}Executing:{RESET} {command}")
         print("")
         run_whatweb(url)
-    elif choice == '6':
+    elif choice == '7':
         url = input("Enter the URL: ")
         wordlist = input("Enter the path to the wordlist: ")
         word = input("Enter size word to filter: ")
@@ -107,14 +115,14 @@ def handle_choice(choice):
         print("")
         print(f"{LPURPLE}Executing:{RESET} {command}")
         run_wfuzz(url, wordlist, word)
-    elif choice == '7':
+    elif choice == '8':
         url = input("Enter the URL: ")
         wordlist = input("Enter the path to the wordlist: ")
         command = f"gobuster dir -u {url} -w {wordlist} -t 100"
         print(f"{LPURPLE}Executing:{RESET} {command}")
         print("")
         run_gobuster_dir(url, wordlist)
-    elif choice == '8':
+    elif choice == '9':
         url = input("Enter the URL: ")
         wordlist = input("Enter the path to the wordlist: ")
         need = input("Need --wildcard: ")
@@ -122,21 +130,21 @@ def handle_choice(choice):
         print("")
         print(f"{LPURPLE}Executing:{RESET} {command}")
         run_gobuster_dns(url, wordlist, need)
-    elif choice == '9':
+    elif choice == '10':
         url = input("Enter the URL: ")
         wordlist = input("Enter the path to the wordlist: ")
         command = f"gobuster vhost -u {url} -t 50 -w {wordlist} --append-domain"
         print("")
         print(f"{LPURPLE}Executing:{RESET} {command}")
         run_gobuster_vhost(url, wordlist)
-    elif choice == '10':
+    elif choice == '11':
         url = input("Enter the URL: ")
         wordlist = input("Enter the path to the wordlist: ")
         command = f"dirsearch -u {url} -e txt,bak,php,html,js,asp,aspx -x 403,404 -w {wordlist}"
         print("")
         print(f"{LPURPLE}Executing:{RESET} {command}")
         run_dirsearch(url, wordlist)
-    elif choice == '11':
+    elif choice == '12':
         url = input("Enter the URL: ")
         wordlist = input("Enter the path to the wordlist: ")
         command = f"feroxbuster -u {url} -w {wordlist} -k -x txt,bak,php,html,js,asp,aspx -C 503"
